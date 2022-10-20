@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.postRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const extractNews_1 = require("../Middleware/extractNews");
+const uploadToSource_1 = require("../Middleware/uploadToSource");
+const Post_1 = require("../Controllers/Post");
+const extractIdsa_1 = require("../Middleware/extractIdsa");
+const extractNiti_1 = require("../Middleware/extractNiti");
+const extractPresident_1 = require("../Middleware/extractPresident");
+const extractPress_1 = require("../Middleware/extractPress");
+const extractPrs_1 = require("../Middleware/extractPrs");
+exports.postRoutes = express_1.default.Router();
+exports.postRoutes.get("/newsOnAir/:category", extractNews_1.extractNewsData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
+exports.postRoutes.get("/idsa/:category", extractIdsa_1.extractIdsaData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
+exports.postRoutes.get("/nitiAayog/:category", extractNiti_1.extractNitiData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
+exports.postRoutes.get("/presidentOfIndia/:category", extractPresident_1.extractPresidentData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
+exports.postRoutes.get("/pressInformationBureau/:category", extractPress_1.extractPressData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
+exports.postRoutes.get("/prsIndia/:category", extractPrs_1.extractPrsData, uploadToSource_1.uploadToSourceMidd, Post_1.getPosts);
