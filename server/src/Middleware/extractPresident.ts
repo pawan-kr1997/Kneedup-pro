@@ -20,6 +20,7 @@ export const extractPresidentData = async (req: ExtendedRequest, res: Response, 
         const articles: Article[] = getExtractedPresidentArticles($);
 
         await updateSourceCurrentState(req, "presidentOfIndia", articles);
+        next();
     } catch (err) {
         console.log(err);
         next(err);

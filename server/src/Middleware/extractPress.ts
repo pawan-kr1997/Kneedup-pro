@@ -20,6 +20,7 @@ export const extractPressData = async (req: ExtendedRequest, res: Response, next
         const articles: Article[] = getExtractedPressArticles($, html);
 
         await updateSourceCurrentState(req, "pressInformationBureau", articles);
+        next();
     } catch (err) {
         console.log(err);
     }

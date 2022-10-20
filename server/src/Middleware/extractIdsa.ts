@@ -20,6 +20,7 @@ export const extractIdsaData = async (req: ExtendedRequest, res: Response, next:
         const articles: Article[] = getExtractedIdsaArticles($);
 
         await updateSourceCurrentState(req, "idsa", articles);
+        next();
     } catch (err) {
         console.log(err);
         next(err);

@@ -20,6 +20,7 @@ export const extractNitiData = async (req: ExtendedRequest, res: Response, next:
         const articles: Article[] = getExtractedNitiArticles($, html);
 
         await updateSourceCurrentState(req, "nitiAayog", articles);
+        next();
     } catch (err) {
         console.log(err);
         next(err);

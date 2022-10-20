@@ -20,6 +20,7 @@ export const extractPrsData = async (req: ExtendedRequest, res: Response, next: 
         const articles: Article[] = getExtractedPrsArticles($);
 
         await updateSourceCurrentState(req, "prsIndia", articles);
+        next();
     } catch (err) {
         console.log(err);
         next(err);
