@@ -1,0 +1,14 @@
+.OffcanvasList {
+    border: 0px !important;
+    display: flex !important;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.OffcanvasNav {
+    position: fixed !important;
+    width: 100%;
+    z-index: 149;
+}

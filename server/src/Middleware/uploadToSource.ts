@@ -19,6 +19,7 @@ export const uploadToSourceMidd = async (req: Request, res: Response, next: Next
 
         let articleGroup: Post[] = populateArticleGroup(toBeAddedArticles, req.category, req.sourceId);
 
+        console.log(toBeAddedArticles);
         if (toBeAddedArticles.length === 0) {
             return next();
         } else {

@@ -1,15 +1,16 @@
 import { validationResult } from "express-validator";
 import { BookmarkData, ExtendedPost, ExtendedRequest, User } from "./tscTypes";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { addResetTokenToUser, getUserFromDbUsingEmailId } from "./databaseFunctions";
+
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
 const transport = nodemailer.createTransport(
     sendgridTransport({
         auth: {
-            api_key: "to be added",
+            api_key: process.env.SENDGRID_API_KEY,
         },
     })
 );
@@ -49,7 +50,7 @@ export const generateJwtToken = (userId: string, emailId: string): string => {
             emailId,
             userId,
         },
-        "secretsecret",
+        process.env.JWT_SECRET as Secret,
         { expiresIn: "48h" }
     );
 
@@ -117,6 +118,7 @@ export const generateAndMailLinkToUser = (req: ExtendedRequest) => {
         checkCryptoError(err);
         const token: string = buffer.toString("hex");
         const user = await getUserFromDbUsingEmailId(req.body.emailId);
+
         checkIfUserNotExists(user);
 
         await addResetTokenToUser(req.body.emailId, token);

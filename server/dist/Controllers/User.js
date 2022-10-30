@@ -44,7 +44,7 @@ const loginUserUsingEmailPassword = (req, res, next) => __awaiter(void 0, void 0
 });
 exports.loginUserUsingEmailPassword = loginUserUsingEmailPassword;
 const getUserCategoryField = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.userId);
+    console.log("getuserCategory: " + req.userId);
     try {
         const user = yield (0, databaseFunctions_1.getUserFromDbUsingId)(req.userId);
         res.status(200).json({ message: "Category data sent", category: user.category });

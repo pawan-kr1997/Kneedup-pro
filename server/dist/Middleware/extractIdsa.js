@@ -30,6 +30,7 @@ const extractIdsaData = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const $ = cheerio_1.default.load(html);
         const articles = (0, middlewareFunctions_1.getExtractedIdsaArticles)($);
         yield (0, databaseFunctions_1.updateSourceCurrentState)(req, "idsa", articles);
+        next();
     }
     catch (err) {
         console.log(err);

@@ -1,0 +1,32 @@
+.SidebarParent {
+    width: 95%;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.SidebarButton {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row;
+    gap: 9px;
+    height: 30px;
+    font-size: 1rem !important;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.SidebarLink {
+    text-decoration: none !important;
+}
+
+.SidebarList {
+    border: 0px !important;
+    padding-left: 1px !important;
+    width: 111% !important;
+}
+
+.AccordionStyle {
+    font-weight: bold;
+}

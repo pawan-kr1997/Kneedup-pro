@@ -1,0 +1,23 @@
+.DateBody {
+    height: fit-content;
+    width: fit-content;
+    padding: 2px 10px 2px 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    font-size: small;
+    white-space: nowrap;
+}
+
+.DateParent {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+}
+
+.DateLine {
+    border-top: 1px solid lightgrey;
+    width: 100px;
+}

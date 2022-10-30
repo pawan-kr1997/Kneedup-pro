@@ -30,6 +30,7 @@ const extractPressData = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         const $ = cheerio_1.default.load(html);
         const articles = (0, middlewareFunctions_1.getExtractedPressArticles)($, html);
         yield (0, databaseFunctions_1.updateSourceCurrentState)(req, "pressInformationBureau", articles);
+        next();
     }
     catch (err) {
         console.log(err);

@@ -94,7 +94,7 @@ export const getPressUrlAndReqCategory = (category: String) => {
     switch (category) {
         case "pressReleases":
             url = "https://www.pib.gov.in/indexd.aspx";
-            reqCategory = "press releases";
+            reqCategory = "pressReleases";
             break;
 
         default:
@@ -258,17 +258,18 @@ export const updateSourceAndToBeAddedArticles = async (req: Request, oldArticles
         oldArticles = [...currentArticles];
         toBeAddedArticles = [...currentArticles];
         toBeAddedArticles = toBeAddedArticles.reverse();
+        console.log("in 1");
 
         await updateSourceStates(req.sourceName, req.category, currentArticles, oldArticles);
     } else if (currentArticles[0].title === oldArticles[0].title) {
         oldArticles = [...currentArticles];
-
+        console.log("in 2");
         await updateSourceStates(req.sourceName, req.category, currentArticles, oldArticles);
     } else {
         let index = getEqualityIndex(currentArticles, oldArticles);
         populateToBeAddedArticles(toBeAddedArticles, index, currentArticles);
         oldArticles = [...currentArticles];
-
+        console.log("in 3");
         await updateSourceStates(req.sourceName, req.category, currentArticles, oldArticles);
     }
 };

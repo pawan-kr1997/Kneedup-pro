@@ -1,0 +1,27 @@
+.ShowNav {
+    position: fixed;
+}
+
+.LogoFont {
+    display: flex;
+    flex-direction: row;
+    font-family: "Bookman Old Style", Georgia, serif;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+}
+
+.UpFont {
+    color: #1a73e8;
+}
+
+.HomeStyle {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+}
+
+@media (max-width: 1200px) {
+    .ShowNav {
+        display: none !important;
+    }
+}

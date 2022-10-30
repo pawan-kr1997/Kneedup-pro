@@ -1,0 +1,441 @@
+/*--------------- Login Form ------------------ */
+
+.LoginForm {
+    width: 50%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.LoginReset {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    top: -15px;
+}
+
+.LoginResetPos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.LoginButton {
+    width: 100px;
+}
+
+@media (max-width: 1200px) {
+    .LoginForm {
+        width: 80%;
+    }
+}
+
+/*--------------- Signup Form-------------------*/
+
+.SignupForm {
+    width: 50%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+@media (max-width: 1200px) {
+    .SignupForm {
+        width: 80%;
+    }
+}
+
+/*---------------- Page not found--------------- */
+
+.Head404 {
+    margin-top: 150px;
+}
+
+.Content404 {
+    align-items: flex-start;
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* -----------Home----------------- */
+
+.HomeCol1 {
+    max-width: 250px;
+    overflow: scroll;
+}
+
+.HomeCol2 {
+    overflow: scroll;
+    max-width: 1000px;
+}
+
+.HomeParent {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: 100%;
+    width: fit-content;
+    margin: auto;
+}
+
+.HomeCol1::-webkit-scrollbar {
+    display: initial !important;
+}
+
+.HomeCol1::-webkit-scrollbar {
+    width: 10px !important;
+    height: 100px !important;
+    border: transparent !important;
+}
+
+.HomeCol1::-webkit-scrollbar-track {
+    border: lightgray !important;
+    border-radius: 30% !important;
+}
+
+.HomeCol1::-webkit-scrollbar-thumb {
+    background: transparent !important;
+    border-radius: 10px !important;
+}
+
+.HomeCol2::-webkit-scrollbar-thumb:hover {
+    background: lightgray !important;
+}
+
+.HomeCol2::-webkit-scrollbar {
+    display: initial !important;
+}
+
+.HomeCol2::-webkit-scrollbar {
+    width: 10px !important;
+    height: 100px !important;
+    border: transparent !important;
+}
+
+.HomeCol2::-webkit-scrollbar-track {
+    border: transparent !important;
+    border-radius: 30% !important;
+}
+
+.HomeCol2::-webkit-scrollbar-thumb {
+    background: lightgray !important;
+    border-radius: 10px !important;
+}
+
+@media (max-width: 1200px) {
+    .HomeCol1 {
+        display: none;
+    }
+}
+
+/* --------------------- bookmark styles ---------------- */
+
+.BookmarkIconContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.BookmarkIcon {
+    color: grey;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 6px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.BookmarkIcon:hover {
+    border: 1px solid grey;
+    box-shadow: 1px 1px 1px grey;
+}
+
+.BookmarkTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 35px;
+    align-items: flex-start;
+    font-weight: 400;
+    color: gray;
+    white-space: nowrap;
+}
+
+.BookmarkContainer {
+    width: 70%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+@media (max-width: 1200px) {
+    .BookmarkContainer {
+        width: 85%;
+    }
+}
+
+.BookmarkTopDate {
+    color: gray;
+}
+
+@media (max-width: 600px) {
+    .BookmarkTopDate {
+        display: none;
+    }
+}
+
+.BookmarkText {
+    color: black;
+    text-decoration: none;
+}
+
+.BookmarkText:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.BookmarkFooter {
+    border: 2px solid transparent;
+    width: 20%;
+    margin: auto;
+    height: 100px;
+    color: transparent;
+}
+
+@media (max-width: 1200px) {
+    .BookmarkFooter {
+        display: none;
+    }
+}
+
+/*------------- New Home -----------------------------*/
+
+.IconNewHome {
+    color: gray;
+    font-size: 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.IconNewHome:hover .InsideIcon {
+    color: black;
+}
+
+.IconNewHome::before,
+.IconNewHome::before {
+    --scale: 0;
+
+    position: absolute;
+    transform: translateX(0%) translateY(100%) scale(var(--scale));
+    transition: 150ms transform;
+    transition-delay: 400ms;
+    transform-origin: top center;
+}
+
+.IconNewHome::before {
+    content: attr(data-tooltip);
+    background: black;
+    color: white;
+    width: max-content;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 0.3rem;
+}
+
+.IconNewHome:hover::before {
+    --scale: 1;
+}
+
+.DivOne {
+    border-right: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding-top: 60px;
+    width: 50px;
+    height: 95vh;
+    position: sticky;
+    top: 35px;
+}
+
+.DivTwo {
+    /* max-width: 800px; */
+    width: min(100%, 800px);
+}
+
+.DivThree {
+    max-width: 360px;
+    overflow: scroll;
+    height: 95vh;
+    position: sticky;
+    top: 35px;
+}
+
+.DivThree::-webkit-scrollbar {
+    display: initial !important;
+}
+
+.DivThree::-webkit-scrollbar {
+    width: 10px !important;
+    height: 100px !important;
+    border: transparent !important;
+}
+
+.DivThree::-webkit-scrollbar-track {
+    border: lightgray !important;
+    border-radius: 30% !important;
+}
+
+.DivThree::-webkit-scrollbar-thumb {
+    background: transparent !important;
+    border-radius: 10px !important;
+}
+
+.nav {
+    justify-content: center !important;
+}
+
+.NavNewHome {
+    justify-content: space-evenly;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    z-index: 150;
+    background: #212529;
+    font-family: "Bookman Old Style", Georgia, serif;
+    font-size: 1.8rem !important;
+    font-weight: bold;
+}
+
+.ChildParent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.MainParentNewHome {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+@media (max-width: 1200px) {
+    .DivOne {
+        display: none;
+    }
+
+    .DivThree {
+        display: none;
+    }
+
+    .NavNewHome {
+        display: none !important;
+    }
+}
+
+/*----------- About Page ----------------*/
+
+.AboutParent {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+    align-items: center;
+}
+
+.AboutBody {
+    height: fit-content;
+    width: 60%;
+}
+
+.AboutPara1 {
+    font-size: 1.3rem;
+    color: gray;
+}
+
+.AboutPara2 {
+    font-size: 2.3rem;
+    font-weight: 750;
+}
+
+.AboutNav {
+    display: flex;
+    flex-direction: row;
+    font-family: "Bookman Old Style", Georgia, serif;
+    font-size: 2rem !important;
+    font-weight: bold;
+    border: 2px solid transparent;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+}
+
+.AboutImage {
+    height: 700px;
+    width: 500px;
+    transform: translateY(-7%);
+}
+
+.AboutButton {
+    outline: none;
+    border-radius: 30px;
+    padding: 10px 20px 10px 20px;
+    background-color: #ffd43b;
+    border: 1px solid transparent;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.AboutButton:hover {
+    background-color: rgb(89, 89, 253);
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .AboutBody {
+        width: 90%;
+    }
+
+    .AboutPara1 {
+        font-size: 1rem;
+    }
+
+    .AboutPara2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ----------------------- */
+.ShowNav {
+    position: fixed;
+}
+
+.LogoFont {
+    display: flex;
+    flex-direction: row;
+    font-family: "Bookman Old Style", Georgia, serif;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+}
+
+.UpFont {
+    color: #1a73e8;
+}
+
+.HomeStyle {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+}
+
+@media (max-width: 1200px) {
+    .ShowNav {
+        display: none !important;
+    }
+}

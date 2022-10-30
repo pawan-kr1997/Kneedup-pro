@@ -30,6 +30,7 @@ const extractNitiData = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const $ = cheerio_1.default.load(html);
         const articles = (0, middlewareFunctions_1.getExtractedNitiArticles)($, html);
         yield (0, databaseFunctions_1.updateSourceCurrentState)(req, "nitiAayog", articles);
+        next();
     }
     catch (err) {
         console.log(err);

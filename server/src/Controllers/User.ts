@@ -56,7 +56,7 @@ export const loginUserUsingEmailPassword = async (req: ExtendedRequest, res: Res
 };
 
 export const getUserCategoryField = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
-    console.log(req.userId);
+    console.log("getuserCategory: " + req.userId);
 
     try {
         const user = await getUserFromDbUsingId(req.userId);

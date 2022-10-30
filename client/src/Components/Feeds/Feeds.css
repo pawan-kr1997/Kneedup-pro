@@ -1,0 +1,96 @@
+.FeedsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 50px;
+}
+
+.IconContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.Icon {
+    color: grey;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 6px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.Icon:hover {
+    border: 1px solid grey;
+    box-shadow: 1px 1px 1px grey;
+}
+
+.DateContainer {
+    border: 1px solid green;
+}
+
+.Text {
+    color: black;
+    text-decoration: none;
+}
+
+.Text:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.Last {
+    visibility: hidden;
+}
+
+.HeaderTextParent {
+    position: sticky;
+    top: 45px;
+    z-index: 100;
+    padding-top: 20px;
+    background: white;
+    border: 2px solid white;
+}
+
+.HeaderText {
+    font-size: 2.2rem;
+    font-weight: bolder;
+    border: 2px transparent;
+    padding: 20px 5px 20px 20px;
+    background: #ffd43b;
+    border-radius: 5px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.InconvinientText {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    border: 1px dashed gray;
+    border-radius: 3px;
+    padding: 5px 15px;
+}
+
+@media (max-width: 480px) {
+    .HeaderText {
+        font-size: 1.5rem;
+    }
+}
+
+.HeaderTextHover {
+    font-size: 1rem;
+    font-weight: bold;
+    height: 80px;
+}
+
+@media (max-width: 1200px) {
+    .Last {
+        display: none !important;
+    }
+}

@@ -30,6 +30,7 @@ const extractPresidentData = (req, res, next) => __awaiter(void 0, void 0, void 
         const $ = cheerio_1.default.load(html);
         const articles = (0, middlewareFunctions_1.getExtractedPresidentArticles)($);
         yield (0, databaseFunctions_1.updateSourceCurrentState)(req, "presidentOfIndia", articles);
+        next();
     }
     catch (err) {
         console.log(err);

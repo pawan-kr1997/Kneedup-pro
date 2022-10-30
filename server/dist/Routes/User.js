@@ -15,7 +15,7 @@ exports.userRoutes.get("/feeds/category", auth_1.authMiddleware, User_1.getUserC
 exports.userRoutes.post("/feeds/category", auth_1.authMiddleware, User_1.updateUserCategoryField);
 exports.userRoutes.get("/postBookmark/:postId", auth_1.authMiddleware, User_1.addPostToUserBookmarks);
 exports.userRoutes.get("/postUnmark/:postId", auth_1.authMiddleware, User_1.deletePostFromUserBookmarks);
-exports.userRoutes.get("/bookmark/init", auth_1.authMiddleware, User_1.getUserBookmarks);
+exports.userRoutes.get("/bookmark", auth_1.authMiddleware, User_1.getUserBookmarks);
 exports.userRoutes.post("/password/resetLink", (0, express_validator_1.body)("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(), User_1.generatePasswordResetLink);
 exports.userRoutes.post("/password/resetPassword", [
     (0, express_validator_1.body)("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(),

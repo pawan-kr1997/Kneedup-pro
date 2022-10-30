@@ -21,6 +21,7 @@ const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             return res.status(200).json({
                 message: "Not logged In",
                 category: { news: true, president: true, niti: true, idsa: true, pib: true, prs: true },
+                data: [],
             });
         }
         let decodedToken;

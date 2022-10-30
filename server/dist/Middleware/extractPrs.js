@@ -30,6 +30,7 @@ const extractPrsData = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         const $ = cheerio_1.default.load(html);
         const articles = (0, middlewareFunctions_1.getExtractedPrsArticles)($);
         yield (0, databaseFunctions_1.updateSourceCurrentState)(req, "prsIndia", articles);
+        next();
     }
     catch (err) {
         console.log(err);

@@ -93,7 +93,7 @@ const getPressUrlAndReqCategory = (category) => {
     switch (category) {
         case "pressReleases":
             url = "https://www.pib.gov.in/indexd.aspx";
-            reqCategory = "press releases";
+            reqCategory = "pressReleases";
             break;
         default:
             url = "";
@@ -232,16 +232,19 @@ const updateSourceAndToBeAddedArticles = (req, oldArticles, currentArticles, toB
         oldArticles = [...currentArticles];
         toBeAddedArticles = [...currentArticles];
         toBeAddedArticles = toBeAddedArticles.reverse();
+        console.log("in 1");
         yield (0, databaseFunctions_1.updateSourceStates)(req.sourceName, req.category, currentArticles, oldArticles);
     }
     else if (currentArticles[0].title === oldArticles[0].title) {
         oldArticles = [...currentArticles];
+        console.log("in 2");
         yield (0, databaseFunctions_1.updateSourceStates)(req.sourceName, req.category, currentArticles, oldArticles);
     }
     else {
         let index = (0, exports.getEqualityIndex)(currentArticles, oldArticles);
         (0, exports.populateToBeAddedArticles)(toBeAddedArticles, index, currentArticles);
         oldArticles = [...currentArticles];
+        console.log("in 3");
         yield (0, databaseFunctions_1.updateSourceStates)(req.sourceName, req.category, currentArticles, oldArticles);
     }
 });

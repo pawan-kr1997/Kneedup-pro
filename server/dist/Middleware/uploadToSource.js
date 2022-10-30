@@ -23,6 +23,7 @@ const uploadToSourceMidd = (req, res, next) => __awaiter(void 0, void 0, void 0,
         oldArticles = [...sourceData.data[req.category].oldState];
         yield (0, middlewareFunctions_1.updateSourceAndToBeAddedArticles)(req, oldArticles, currentArticles, toBeAddedArticles);
         let articleGroup = (0, middlewareFunctions_1.populateArticleGroup)(toBeAddedArticles, req.category, req.sourceId);
+        console.log(toBeAddedArticles);
         if (toBeAddedArticles.length === 0) {
             return next();
         }

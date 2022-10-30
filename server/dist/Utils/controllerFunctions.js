@@ -21,7 +21,7 @@ const databaseFunctions_1 = require("./databaseFunctions");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const transport = nodemailer_1.default.createTransport(sendgridTransport({
     auth: {
-        api_key: "to be added",
+        api_key: process.env.SENDGRID_API_KEY,
     },
 }));
 const checkForValidationError = (req) => {
@@ -57,7 +57,7 @@ const generateJwtToken = (userId, emailId) => {
     const token = jsonwebtoken_1.default.sign({
         emailId,
         userId,
-    }, "secretsecret", { expiresIn: "48h" });
+    }, process.env.JWT_SECRET, { expiresIn: "48h" });
     return token;
 };
 exports.generateJwtToken = generateJwtToken;

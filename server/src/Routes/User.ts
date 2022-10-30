@@ -36,7 +36,7 @@ userRoutes.get("/feeds/category", authMiddleware, getUserCategoryField);
 userRoutes.post("/feeds/category", authMiddleware, updateUserCategoryField);
 userRoutes.get("/postBookmark/:postId", authMiddleware, addPostToUserBookmarks);
 userRoutes.get("/postUnmark/:postId", authMiddleware, deletePostFromUserBookmarks);
-userRoutes.get("/bookmark/init", authMiddleware, getUserBookmarks);
+userRoutes.get("/bookmark", authMiddleware, getUserBookmarks);
 userRoutes.post("/password/resetLink", body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(), generatePasswordResetLink);
 userRoutes.post(
     "/password/resetPassword",
