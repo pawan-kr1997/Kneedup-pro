@@ -30,11 +30,12 @@ import useUserStore from "../../store";
 const Feeds = () => {
     let params = useParams();
     let navigate = useNavigate();
-    const { token, isLogged, loginUser, logoutUser } = useUserStore((state) => ({
+    const { token, isLogged, loginUser, logoutUser, subscriptionStatus } = useUserStore((state) => ({
         token: state.token,
         isLogged: state.isLogged,
         loginUser: state.loginUser,
         logoutUser: state.logoutUser,
+        subscriptionStatus: state.subscriptionStatus,
     }));
 
     const [showHomeStatus, setShowHomeStatus] = useState<boolean>(true);
@@ -92,7 +93,7 @@ const Feeds = () => {
                 currentDateStatus = false;
             }
 
-            let bookmarkStatus = <BsBookmarks className="Icon" onClick={() => setBookmarkHandler(post.id, setBookmarkData, navigate, isLogged, logoutUser)} />;
+            let bookmarkStatus = <BsBookmarks className="Icon" onClick={() => setBookmarkHandler(post.id, setBookmarkData, navigate, isLogged, logoutUser, subscriptionStatus)} />;
 
             for (let i = 0; i < bookmarkData.length; i++) {
                 if (bookmarkData[i].id.toString() === post.id.toString()) {

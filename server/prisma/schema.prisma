@@ -74,6 +74,9 @@ model users {
   password             String
   category             UsersCategory
   bookmark             UsersBookmark[]
+  stripeUserId         String?
+  subscriptionId       String?
+  subscriptionStatus   Boolean
   resetToken           String?
   resetTokenExpiration Int?
 }

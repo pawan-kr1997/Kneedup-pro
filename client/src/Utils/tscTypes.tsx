@@ -62,8 +62,18 @@ export type Post = {
 export type Store = {
     token: string;
     isLogged: boolean;
+    subscriptionStatus: boolean;
     categoryDetail: Category;
     loginUser: (jwtToken: string) => void;
     logoutUser: () => void;
     setCategoryDetail: (category: Category) => void;
+    setSubscriptionStatus: () => Promise<void>;
+};
+
+export type SuccessDisplayProps = {
+    sessionId: string;
+};
+
+export type MessageProps = {
+    message: string;
 };

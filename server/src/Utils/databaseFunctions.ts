@@ -108,6 +108,9 @@ export const createNewUser = async (emailId: String | undefined, password: Strin
                 prs: true,
             },
             bookmark: [],
+            stripeUserId: null,
+            subscriptionId: null,
+            subscriptionStatus: false,
             resetToken: null,
             resetTokenExpiration: null,
         },
@@ -198,4 +201,20 @@ export const insertManyPosts = async (articleGroup: Post[]): Promise<void> => {
     const createManyPosts = await prisma.posts.createMany({
         data: articleGroup,
     });
+};
+
+export const updateUserSubscriptionDetails = async (userId: string, stripe_CustomerId: string | null, subs_status: boolean) => {
+    try {
+        await prisma.users.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                stripeUserId: stripe_CustomerId,
+                subscriptionStatus: subs_status,
+            },
+        });
+    } catch (err) {
+        console.log("Error from updating subscription details");
+    }
 };

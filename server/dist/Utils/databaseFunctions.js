@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertManyPosts = exports.updateSourceStates = exports.getSourceUsingName = exports.updateSourceCurrentState = exports.updateUserCategory = exports.createNewUser = exports.updateUserBookmark = exports.setResetPasswordToUser = exports.addResetTokenToUser = exports.getPostWithSourcesField = exports.getUserFromDbUsingToken = exports.getUserFromDbUsingId = exports.getUserFromDbUsingEmailId = void 0;
+exports.updateUserSubscriptionDetails = exports.insertManyPosts = exports.updateSourceStates = exports.getSourceUsingName = exports.updateSourceCurrentState = exports.updateUserCategory = exports.createNewUser = exports.updateUserBookmark = exports.setResetPasswordToUser = exports.addResetTokenToUser = exports.getPostWithSourcesField = exports.getUserFromDbUsingToken = exports.getUserFromDbUsingId = exports.getUserFromDbUsingEmailId = void 0;
 const prisma = require("../../prisma/index.js");
 const controllerFunctions_1 = require("./controllerFunctions");
 const getUserFromDbUsingEmailId = (emailId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -109,6 +109,9 @@ const createNewUser = (emailId, password) => __awaiter(void 0, void 0, void 0, f
                 prs: true,
             },
             bookmark: [],
+            stripeUserId: null,
+            subscriptionId: null,
+            subscriptionStatus: false,
             resetToken: null,
             resetTokenExpiration: null,
         },
@@ -195,3 +198,20 @@ const insertManyPosts = (articleGroup) => __awaiter(void 0, void 0, void 0, func
     });
 });
 exports.insertManyPosts = insertManyPosts;
+const updateUserSubscriptionDetails = (userId, stripe_CustomerId, subs_status) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield prisma.users.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                stripeUserId: stripe_CustomerId,
+                subscriptionStatus: subs_status,
+            },
+        });
+    }
+    catch (err) {
+        console.log("Error from updating subscription details");
+    }
+});
+exports.updateUserSubscriptionDetails = updateUserSubscriptionDetails;

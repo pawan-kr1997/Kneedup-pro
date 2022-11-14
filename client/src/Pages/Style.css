@@ -24,6 +24,10 @@
     width: 100px;
 }
 
+.LoginButtonWide {
+    width: 100%;
+}
+
 @media (max-width: 1200px) {
     .LoginForm {
         width: 80%;
@@ -438,4 +442,51 @@
     .ShowNav {
         display: none !important;
     }
+}
+
+/* ------------ Subscription Page -------------------*/
+
+.SubsParent {
+    padding: 10px;
+}
+
+.SubsContainer {
+    padding: 90px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.SubsStatus {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.SubsStatus span {
+    font-weight: 800;
+    margin-left: 8px;
+}
+
+.SubsDescription {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.SubsActive {
+    background-color: greenyellow;
+    height: fit-content;
+    padding: 1px 1.2rem;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.SubsInactive {
+    background-color: crimson;
+    height: fit-content;
+    padding: 1px 1.2rem;
+    border-radius: 3px;
+    font-size: 1rem;
 }

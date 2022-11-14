@@ -2,6 +2,7 @@ import { Nav } from "react-bootstrap";
 import { BsPeople } from "react-icons/bs";
 import { BsStar } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
+import { BsCreditCard } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import { useState, useEffect } from "react";
@@ -16,13 +17,15 @@ import useUserStore from "../store";
 
 const Home = () => {
     let navigate = useNavigate();
-    const { token, isLogged, categoryDetail, loginUser, logoutUser, setCategoryDetail } = useUserStore((state) => ({
+    const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => ({
         token: state.token,
         isLogged: state.isLogged,
         categoryDetail: state.categoryDetail,
+        subscriptionStatus: state.subscriptionStatus,
         loginUser: state.loginUser,
         logoutUser: state.logoutUser,
         setCategoryDetail: state.setCategoryDetail,
+        setSubscriptionStatus: state.setSubscriptionStatus,
     }));
 
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -31,6 +34,14 @@ const Home = () => {
     useEffect(() => {
         getUserCategory(setCategoryDetail, logoutUser, navigate);
     }, [JSON.stringify(categoryDetail)]);
+
+    const onSubscriptionClickHandler = () => {
+        if (isLogged) {
+            navigate("/subscription");
+        } else {
+            navigate("/login");
+        }
+    };
 
     return (
         <div className="MainParentNewHome">
@@ -49,15 +60,18 @@ const Home = () => {
                         <BsPeople className="InsideIcon" onClick={() => onAboutClickHandler(navigate)} />
                     </div>
                     <div className="IconNewHome" data-tooltip="Bookmarks">
-                        <BsBookmark className="InsideIcon" onClick={() => onBookmarkClickHandler(navigate, isLogged)} />
+                        <BsBookmark className="InsideIcon" onClick={() => onBookmarkClickHandler(navigate, isLogged, subscriptionStatus)} />
                     </div>
                     <div className="IconNewHome" data-tooltip="Follow sites">
                         <BsStar className="InsideIcon" onClick={() => showModalHandler(setShowModal, navigate, isLogged)} />
                     </div>
+                    <div className="IconNewHome" data-tooltip="Subscription">
+                        <BsCreditCard className="InsideIcon" onClick={onSubscriptionClickHandler} />
+                    </div>
 
                     {isLogged ? (
                         <div className="IconNewHome" style={{ borderTop: "3px solid lightgray", paddingTop: "50px" }} data-tooltip="Logout">
-                            <IoIosLogOut className="InsideIcon" onClick={() => onLogoutClickHandler(navigate, logoutUser)} />
+                            <IoIosLogOut className="InsideIcon" onClick={() => onLogoutClickHandler(navigate, logoutUser, setSubscriptionStatus, setCategoryDetail)} />
                         </div>
                     ) : null}
                 </div>

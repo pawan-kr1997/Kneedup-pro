@@ -14,9 +14,10 @@ import "./Style.css";
 
 const Login = () => {
     let navigate = useNavigate();
-    const { loginUser, logoutUser } = useUserStore((state) => ({
+    const { loginUser, logoutUser, setSubscriptionStatus } = useUserStore((state) => ({
         loginUser: state.loginUser,
         logoutUser: state.logoutUser,
+        setSubscriptionStatus: state.setSubscriptionStatus,
     }));
 
     const [emailId, setEmailId] = useState("");
@@ -42,7 +43,7 @@ const Login = () => {
                 </Container>
             </Navbar>
             <Container>
-                <Form className="LoginForm" onSubmit={(e) => onLoginHandler(e, emailId, password, setError, navigate, loginUser)}>
+                <Form className="LoginForm" onSubmit={(e) => onLoginHandler(e, emailId, password, setError, navigate, loginUser, setSubscriptionStatus)}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control

@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { Navigate } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
@@ -8,23 +11,24 @@ import Bookmark from "./Pages/Bookmark";
 import Home from "./Pages/Home";
 import Feeds from "./Components/Feeds/Feeds";
 import Reset from "./Pages/Reset";
-import { useEffect } from "react";
+import Subscription from "./Pages/Subscription";
 import PostReset from "./Pages/PostReset";
 import About from "./Pages/About";
 import useUserStore from "./store";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import SomethingWentWrong from "./Pages/SomethingWentWrong";
+
 import { setUserTokenAndLoggedStatus } from "./Functions/componentFunctions";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const App = () => {
-    const { loginUser, logoutUser } = useUserStore((state) => ({
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-    }));
+    const { isLogged, loginUser, logoutUser, setSubscriptionStatus } = useUserStore((state) => state);
+
+    const stripePromise = loadStripe("pk_test_51LnL0sSAy6HVqYxUc4MRmS5GOR79Dbc7T7mKjKhXbeFl71EFvoYQg0q9QpOgMuh8inYfZY6VmbuJQUvF9i53coU200Pn3KuYcp");
 
     useEffect(() => {
-        setUserTokenAndLoggedStatus(logoutUser, loginUser);
+        console.log("zuztand change done" + isLogged);
+        setUserTokenAndLoggedStatus(logoutUser, loginUser, setSubscriptionStatus);
     }, []);
 
     return (
@@ -40,6 +44,15 @@ const App = () => {
             <Route path="/reset/:resetToken" element={<Reset />} />
             <Route path="/reset" element={<PostReset />} />
             <Route path="/about" element={<About />} />
+            <Route
+                path="/subscription"
+                element={
+                    <Elements stripe={stripePromise}>
+                        <Subscription />
+                    </Elements>
+                }
+            />
+
             <Route path="/pagenotfound" element={<PageNotFound />} />
             <Route path="/somethingWentWrong" element={<SomethingWentWrong />} />
             <Route path="/*" element={<PageNotFound />} />

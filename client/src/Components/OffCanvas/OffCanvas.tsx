@@ -14,11 +14,14 @@ import useUserStore from "../../store";
 
 const OffCanvas: React.FC<OffCanvasProps> = (props) => {
     let navigate = useNavigate();
-    const { token, isLogged, loginUser, logoutUser } = useUserStore((state) => ({
+    const { token, isLogged, subscriptionStatus, loginUser, logoutUser, setSubscriptionStatus, setCategoryDetail } = useUserStore((state) => ({
         token: state.token,
         isLogged: state.isLogged,
+        subscriptionStatus: state.subscriptionStatus,
         loginUser: state.loginUser,
         logoutUser: state.logoutUser,
+        setSubscriptionStatus: state.setSubscriptionStatus,
+        setCategoryDetail: state.setCategoryDetail,
     }));
 
     const [show, setShow] = useState(false);
@@ -61,7 +64,7 @@ const OffCanvas: React.FC<OffCanvasProps> = (props) => {
                             action
                             className="OffcanvasList"
                             onClick={() => {
-                                onBookmarkClickHandler(navigate, isLogged);
+                                onBookmarkClickHandler(navigate, isLogged, subscriptionStatus);
                                 handleClose();
                             }}
                         >
@@ -220,7 +223,12 @@ const OffCanvas: React.FC<OffCanvasProps> = (props) => {
                                     </Link>
                                 </div>
                             ) : (
-                                <Button variant="primary" size="lg" style={{ margin: "5px 0px", width: "100%" }} onClick={() => onLogoutClickHandler(navigate, logoutUser)}>
+                                <Button
+                                    variant="primary"
+                                    size="lg"
+                                    style={{ margin: "5px 0px", width: "100%" }}
+                                    onClick={() => onLogoutClickHandler(navigate, logoutUser, setSubscriptionStatus, setCategoryDetail)}
+                                >
                                     Logout
                                 </Button>
                             )}

@@ -10,12 +10,18 @@ export const setBookmarkHandler = async (
     setBookmarkData: React.Dispatch<React.SetStateAction<BookmarkData[]>>,
     navigate: NavigateFunction,
     isLogged: boolean,
-    logoutUser: () => void
+    logoutUser: () => void,
+    subscriptionStatus: boolean
 ) => {
     try {
         toast("Post added to bookmark");
         if (!isLogged) {
             navigate("/login");
+            return;
+        }
+        if (!subscriptionStatus) {
+            navigate("/subscription");
+            return;
         }
         const response = await axios.get("/postBookmark/" + postId);
         setBookmarkData(response.data.user.bookmark);
@@ -213,11 +219,13 @@ export const getToBeShownPostDate = (post: Post, currentDate: string, currentDat
     return postDate;
 };
 
-export const onLogoutClickHandler = (navigate: NavigateFunction, logoutUser: () => void) => {
+export const onLogoutClickHandler = (navigate: NavigateFunction, logoutUser: () => void, setSubscriptionStatus: () => Promise<void>, setCategoryDetail: (category: Category) => void) => {
     navigate("/newsOnAir_National");
     localStorage.removeItem("token");
-    logoutUser();
     axios.defaults.headers.common["Authorization"] = null;
+    setCategoryDetail({ news: true, president: true, niti: true, idsa: true, pib: true, prs: true });
+    logoutUser();
+    setSubscriptionStatus();
     window.location.reload();
 };
 
@@ -225,9 +233,13 @@ export const onAboutClickHandler = (navigate: NavigateFunction) => {
     navigate("/about");
 };
 
-export const onBookmarkClickHandler = (navigate: NavigateFunction, isLogged: boolean) => {
+export const onBookmarkClickHandler = (navigate: NavigateFunction, isLogged: boolean, subscriptionStatus: boolean) => {
     if (isLogged) {
-        navigate("/bookmark");
+        if (subscriptionStatus) {
+            navigate("/bookmark");
+        } else {
+            navigate("/subscription");
+        }
     } else {
         navigate("/login");
     }
@@ -254,10 +266,12 @@ export const getModalVisibilityClassName = (show: boolean): string => {
     return visibleState;
 };
 
-export const setUserTokenAndLoggedStatus = (logoutUser: () => void, loginUser: (jwtToken: string) => void) => {
+export const setUserTokenAndLoggedStatus = (logoutUser: () => void, loginUser: (jwtToken: string) => void, setSubscriptionStatus: () => Promise<void>) => {
+    console.log("Initializing Zustand store from App.tsx");
     if (localStorage.getItem("token") === null || localStorage.getItem("token") === "") {
         logoutUser();
     } else {
         loginUser(localStorage.getItem("token") || "");
+        setSubscriptionStatus();
     }
 };

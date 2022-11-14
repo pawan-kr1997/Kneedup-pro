@@ -11,6 +11,8 @@ export const NavBar = () => {
     let navigate = useNavigate();
     const isLogged = useUserStore((state) => state.isLogged);
     const logoutUser = useUserStore((state) => state.logoutUser);
+    const setSubscriptionStatus = useUserStore((state) => state.setSubscriptionStatus);
+    const setCategoryDetail = useUserStore((state) => state.setCategoryDetail);
 
     return (
         <div>
@@ -48,7 +50,7 @@ export const NavBar = () => {
                         ) : (
                             <Nav>
                                 <Link to="/">
-                                    <Button variant="outline-primary" onClick={() => onLogoutClickHandler(navigate, logoutUser)}>
+                                    <Button variant="outline-primary" onClick={() => onLogoutClickHandler(navigate, logoutUser, setSubscriptionStatus, setCategoryDetail)}>
                                         Log Out
                                     </Button>
                                 </Link>

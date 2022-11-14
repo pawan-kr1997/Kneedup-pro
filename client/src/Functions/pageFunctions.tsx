@@ -29,7 +29,8 @@ export const onLoginHandler = async (
     password: string,
     setError: React.Dispatch<React.SetStateAction<string>>,
     navigate: NavigateFunction,
-    loginUser: (jwtToken: string) => void
+    loginUser: (jwtToken: string) => void,
+    setSubscriptionStatus: () => Promise<void>
 ) => {
     e.preventDefault();
 
@@ -38,6 +39,7 @@ export const onLoginHandler = async (
         localStorage.setItem("token", response.data.token);
         loginUser(response.data.token);
         axios.defaults.headers.common["Authorization"] = response.data.token;
+        setSubscriptionStatus();
         navigate("/");
     } catch (err) {
         if (axios.isAxiosError(err)) {

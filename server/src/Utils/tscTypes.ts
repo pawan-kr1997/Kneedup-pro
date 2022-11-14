@@ -25,6 +25,7 @@ declare global {
             sourceId: string;
             category: string;
             userId?: string;
+            rawBody?: Buffer;
         }
     }
 }
@@ -49,6 +50,9 @@ export type User = {
     id: string;
     emailId: string;
     password: string;
+    stripeUserId: string | undefined;
+    subscriptionId: string | undefined;
+    subscriptionStatus: boolean;
     resetToken: string | undefined;
     resetTokenExpiration: Number | undefined;
     category: Object;

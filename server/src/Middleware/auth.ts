@@ -23,6 +23,7 @@ export const authMiddleware = async (req: ExtendedRequest, res: Response, next: 
         }
 
         req.userId = decodedToken.userId;
+
         next();
     } catch (err) {
         next(err);

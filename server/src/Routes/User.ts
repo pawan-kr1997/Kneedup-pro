@@ -17,18 +17,22 @@ export const userRoutes = express.Router();
 
 userRoutes.post(
     "/signup",
-    body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(),
+    [
+        body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(),
 
-    body("password", "Please enter a password with only numbers and text and atleast 8 characters").trim().isLength({ min: 8 }).isAlphanumeric(),
+        body("password", "Please enter a password with only numbers and text and atleast 8 characters").trim().isLength({ min: 8 }).isAlphanumeric(),
 
-    body("confirmPassword", "Invalid confirm password").trim().isLength({ min: 8 }),
+        body("confirmPassword", "Invalid confirm password").trim().isLength({ min: 8 }),
+    ],
     signupUserUsingEmailPassword
 );
 
 userRoutes.post(
     "/login",
-    body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(),
-    body("password", "Please enter a password with only numbers and text and atleast 8 characters").trim().isLength({ min: 8 }).isAlphanumeric(),
+    [
+        body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(),
+        body("password", "Please enter a password with only numbers and text and atleast 8 characters").trim().isLength({ min: 8 }).isAlphanumeric(),
+    ],
     loginUserUsingEmailPassword
 );
 
