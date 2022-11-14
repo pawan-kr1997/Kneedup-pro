@@ -10,10 +10,7 @@ import useUserStore from "../store";
 import { MessageProps, SuccessDisplayProps } from "../Utils/tscTypes";
 
 const ProductDisplay = () => {
-    const { token, subscriptionStatus } = useUserStore((state) => ({
-        token: state.token,
-        subscriptionStatus: state.subscriptionStatus,
-    }));
+    const { token, subscriptionStatus } = useUserStore((state) => state);
 
     return (
         <section>
@@ -36,10 +33,7 @@ const ProductDisplay = () => {
 };
 
 const SuccessDisplay: React.FC<SuccessDisplayProps> = ({ sessionId }) => {
-    const { token, subscriptionStatus } = useUserStore((state) => ({
-        token: state.token,
-        subscriptionStatus: state.subscriptionStatus,
-    }));
+    const { token, subscriptionStatus } = useUserStore((state) => state);
 
     return (
         <section>
@@ -74,16 +68,7 @@ const Message: React.FC<MessageProps> = ({ message }) => (
 );
 
 export default function Subscription() {
-    const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => ({
-        token: state.token,
-        isLogged: state.isLogged,
-        categoryDetail: state.categoryDetail,
-        subscriptionStatus: state.subscriptionStatus,
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        setCategoryDetail: state.setCategoryDetail,
-        setSubscriptionStatus: state.setSubscriptionStatus,
-    }));
+    const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => state);
 
     let [message, setMessage] = useState("");
     let [success, setSuccess] = useState(false);

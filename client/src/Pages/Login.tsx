@@ -14,11 +14,7 @@ import "./Style.css";
 
 const Login = () => {
     let navigate = useNavigate();
-    const { loginUser, logoutUser, setSubscriptionStatus } = useUserStore((state) => ({
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        setSubscriptionStatus: state.setSubscriptionStatus,
-    }));
+    const { loginUser, logoutUser, setSubscriptionStatus } = useUserStore((state) => state);
 
     const [emailId, setEmailId] = useState("");
     const [password, setPassword] = useState("");

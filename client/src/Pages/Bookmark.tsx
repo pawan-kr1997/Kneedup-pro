@@ -23,14 +23,7 @@ const Bookmark = () => {
     const [bookmark, setBookmark] = useState<BookmarkData[]>([]);
     const [bookmarkLoading, setBookmarkLoading] = useState(true);
 
-    const { token, isLogged, categoryDetail, loginUser, logoutUser, setCategoryDetail } = useUserStore((state) => ({
-        token: state.token,
-        isLogged: state.isLogged,
-        categoryDetail: state.categoryDetail,
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        setCategoryDetail: state.setCategoryDetail,
-    }));
+    const { token, isLogged, categoryDetail, loginUser, logoutUser, setCategoryDetail } = useUserStore((state) => state);
 
     useEffect(() => {
         getUserBookmarkedPosts(setBookmark, isLogged, logoutUser, navigate, setBookmarkLoading);

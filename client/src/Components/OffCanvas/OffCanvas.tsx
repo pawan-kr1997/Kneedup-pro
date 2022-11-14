@@ -14,15 +14,7 @@ import useUserStore from "../../store";
 
 const OffCanvas: React.FC<OffCanvasProps> = (props) => {
     let navigate = useNavigate();
-    const { token, isLogged, subscriptionStatus, loginUser, logoutUser, setSubscriptionStatus, setCategoryDetail } = useUserStore((state) => ({
-        token: state.token,
-        isLogged: state.isLogged,
-        subscriptionStatus: state.subscriptionStatus,
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        setSubscriptionStatus: state.setSubscriptionStatus,
-        setCategoryDetail: state.setCategoryDetail,
-    }));
+    const { token, isLogged, subscriptionStatus, loginUser, logoutUser, setSubscriptionStatus, setCategoryDetail } = useUserStore((state) => state);
 
     const [show, setShow] = useState(false);
 

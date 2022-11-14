@@ -9,10 +9,7 @@ import { onHomeClickHandler, onLogoutClickHandler } from "../../Functions/compon
 
 export const NavBar = () => {
     let navigate = useNavigate();
-    const isLogged = useUserStore((state) => state.isLogged);
-    const logoutUser = useUserStore((state) => state.logoutUser);
-    const setSubscriptionStatus = useUserStore((state) => state.setSubscriptionStatus);
-    const setCategoryDetail = useUserStore((state) => state.setCategoryDetail);
+    const { isLogged, logoutUser, setSubscriptionStatus, setCategoryDetail } = useUserStore((state) => state);
 
     return (
         <div>

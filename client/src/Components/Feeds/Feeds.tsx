@@ -30,13 +30,7 @@ import useUserStore from "../../store";
 const Feeds = () => {
     let params = useParams();
     let navigate = useNavigate();
-    const { token, isLogged, loginUser, logoutUser, subscriptionStatus } = useUserStore((state) => ({
-        token: state.token,
-        isLogged: state.isLogged,
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        subscriptionStatus: state.subscriptionStatus,
-    }));
+    const { token, isLogged, loginUser, logoutUser, subscriptionStatus } = useUserStore((state) => state);
 
     const [showHomeStatus, setShowHomeStatus] = useState<boolean>(true);
     const [headerText, setHeaderText] = useState<string>("");

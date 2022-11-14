@@ -10,8 +10,6 @@ import { SidebarProps } from "../../Utils/tscTypes";
 const Sidebar: React.FC<SidebarProps> = (props) => {
     const isLogged = useUserStore((state) => state.isLogged);
 
-    // let LoggedIn = localStorage.getItem("token") ? true : false;
-
     return (
         <div className="SidebarParent">
             {!isLogged ? (

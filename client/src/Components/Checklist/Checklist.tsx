@@ -19,14 +19,9 @@ const Checklist: React.FC<ChecklistProps> = (props) => {
     const [pib, setPib] = useState<boolean>();
     const [prs, setPrs] = useState<boolean>();
 
-    const { logoutUser, categoryDetail, setCategoryDetail } = useUserStore((state) => ({
-        logoutUser: state.logoutUser,
-        categoryDetail: state.categoryDetail,
-        setCategoryDetail: state.setCategoryDetail,
-    }));
+    const { logoutUser, categoryDetail, setCategoryDetail } = useUserStore((state) => state);
 
     useEffect(() => {
-        console.log("I am looper 2");
         getUserCategoryDetails(setNews, setPresident, setNiti, setIdsa, setPib, setPrs, setCategoryDetail, categoryDetail, props.show, navigate, logoutUser);
     }, [JSON.stringify(categoryDetail), props.show]);
 

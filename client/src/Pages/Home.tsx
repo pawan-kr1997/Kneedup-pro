@@ -17,16 +17,7 @@ import useUserStore from "../store";
 
 const Home = () => {
     let navigate = useNavigate();
-    const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => ({
-        token: state.token,
-        isLogged: state.isLogged,
-        categoryDetail: state.categoryDetail,
-        subscriptionStatus: state.subscriptionStatus,
-        loginUser: state.loginUser,
-        logoutUser: state.logoutUser,
-        setCategoryDetail: state.setCategoryDetail,
-        setSubscriptionStatus: state.setSubscriptionStatus,
-    }));
+    const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => state);
 
     const [showModal, setShowModal] = useState<boolean>(false);
     // const [categoryDetail, setCategoryDetail] = useState<Category>({ news: true, president: true, niti: true, idsa: true, pib: true, prs: true });
