@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+
 import CategorySideBar from "../CategorySideBar/CategorySideBar";
+import { SidebarProps } from "../../Utils/tscTypes";
 
 import useUserStore from "../../store";
 
 import "./Sidebar.css";
-import { SidebarProps } from "../../Utils/tscTypes";
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
     const isLogged = useUserStore((state) => state.isLogged);

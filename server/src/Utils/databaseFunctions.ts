@@ -203,7 +203,7 @@ export const insertManyPosts = async (articleGroup: Post[]): Promise<void> => {
     });
 };
 
-export const updateUserSubscriptionDetails = async (userId: string, stripe_CustomerId: string | null, subs_status: boolean) => {
+export const updateUserSubsDetailOnCreation = async (userId: string, stripe_CustomerId: string | null) => {
     try {
         await prisma.users.update({
             where: {
@@ -211,10 +211,57 @@ export const updateUserSubscriptionDetails = async (userId: string, stripe_Custo
             },
             data: {
                 stripeUserId: stripe_CustomerId,
-                subscriptionStatus: subs_status,
+                subscriptionStatus: true,
             },
         });
     } catch (err) {
-        console.log("Error from updating subscription details");
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+};
+
+export const updateUserSubsDetailOnDeletion = async (stripeId: string) => {
+    try {
+        await prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: null,
+                subscriptionStatus: false,
+            },
+        });
+    } catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+};
+
+export const updateUserSubsDetailOnInvoiceSuccess = async (stripeId: string) => {
+    try {
+        await prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: stripeId,
+                subscriptionStatus: true,
+            },
+        });
+    } catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+};
+export const updateUserSubsDetailOnInvoiceFail = async (stripeId: string) => {
+    try {
+        await prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: null,
+                subscriptionStatus: false,
+            },
+        });
+    } catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
     }
 };

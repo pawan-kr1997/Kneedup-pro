@@ -1,7 +1,7 @@
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
 
-export const authenticationErrorHandler = (setError: React.Dispatch<React.SetStateAction<string>>, errorMsg: string, navigate: NavigateFunction) => {
+export const authenticationErrorHandler = (setError: React.Dispatch<React.SetStateAction<string>>, errorMsg: string, navigate: NavigateFunction): void => {
     if (errorMsg === "Error: Please enter a password with only numbers and text and atleast 8 characters") {
         setError(errorMsg);
     } else if (errorMsg === "Error: Email id is not valid") {
@@ -19,7 +19,7 @@ export const authenticationErrorHandler = (setError: React.Dispatch<React.SetSta
     }
 };
 
-export const userDataErrorHandler = (errorMsg: string, logoutUser: () => void, navigate: NavigateFunction) => {
+export const userDataErrorHandler = (errorMsg: string, logoutUser: () => void, navigate: NavigateFunction): void => {
     if (errorMsg === "JsonWebTokenError: invalid token") {
         localStorage.removeItem("token");
         logoutUser();
@@ -35,7 +35,7 @@ export const userDataErrorHandler = (errorMsg: string, logoutUser: () => void, n
     }
 };
 
-export const getPostErrorHandler = (setLoading: React.Dispatch<React.SetStateAction<boolean>>, setRefreshPost: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const getPostErrorHandler = (setLoading: React.Dispatch<React.SetStateAction<boolean>>, setRefreshPost: React.Dispatch<React.SetStateAction<boolean>>): void => {
     setLoading(false);
     setRefreshPost(true);
 };

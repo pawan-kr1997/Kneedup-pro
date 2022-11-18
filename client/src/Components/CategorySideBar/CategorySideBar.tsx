@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+
 import { CategorySideBarProps } from "../../Utils/tscTypes";
+
 import "./CategorySideBar.css";
 
 const CategorySideBar: React.FC<CategorySideBarProps> = (props) => {

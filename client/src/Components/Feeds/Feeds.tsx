@@ -7,9 +7,6 @@ import { BsFillBookmarksFill } from "react-icons/bs";
 import { MdShare } from "react-icons/md";
 
 import DateContainer from "../Date/Date";
-
-import "./Feeds.css";
-import "react-toastify/dist/ReactToastify.css";
 import { BookmarkData, Post } from "../../Utils/tscTypes";
 import {
     getAndSetFeedVariable,
@@ -26,6 +23,9 @@ import { getPostsFromUrl, getUserBookmarkedPosts } from "../../Functions/serverF
 import { HomeContent } from "../HomeContent/HomeContent";
 
 import useUserStore from "../../store";
+
+import "./Feeds.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const Feeds = () => {
     let params = useParams();
@@ -52,7 +52,7 @@ const Feeds = () => {
 
     useEffect(() => {
         getUserBookmarkedPosts(setBookmarkData, isLogged, logoutUser, navigate, setBookmarkLoading);
-    }, [JSON.stringify(bookmarkData)]);
+    }, [JSON.stringify(bookmarkData), isLogged]);
 
     useEffect(() => {
         window.addEventListener("scroll", scrollAnimationHandler());

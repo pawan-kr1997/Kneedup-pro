@@ -1,10 +1,13 @@
 import React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import Logo from "../Components/UI/Logo/Logo";
+import { onRefreshClickHandler } from "../Functions/pageFunctions";
 
 const SomethingWentWrong: React.FC = () => {
+    let navigate = useNavigate();
+
     return (
         <div>
             <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -16,9 +19,10 @@ const SomethingWentWrong: React.FC = () => {
             <div className="Content404">
                 <h1 className="Head404">Err something went wrong</h1>
                 <h4>Please refresh page</h4>
-                <Link to="/home">
-                    <Button variant="primary">Refresh page</Button>
-                </Link>
+
+                <Button variant="primary" onClick={() => onRefreshClickHandler(navigate)}>
+                    Refresh page
+                </Button>
             </div>
         </div>
     );

@@ -4,13 +4,14 @@ import { BsStar } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
 import { BsCreditCard } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
-import Sidebar from "../Components/Sidebar/Sidebar";
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
+
 import OffCanvas from "../Components/OffCanvas/OffCanvas";
+import Sidebar from "../Components/Sidebar/Sidebar";
 import Modal from "../Components/UI/Modal/Modal";
-import { Category } from "../Utils/tscTypes";
-import { onAboutClickHandler, onBookmarkClickHandler, onLogoutClickHandler, removeModalHandler, showModalHandler } from "../Functions/componentFunctions";
+
+import { onAboutClickHandler, onBookmarkClickHandler, onLogoutClickHandler, onSubscriptionClickHandler, removeModalHandler, showModalHandler } from "../Functions/componentFunctions";
 import { getUserCategory } from "../Functions/serverFunctions";
 
 import useUserStore from "../store";
@@ -20,19 +21,10 @@ const Home = () => {
     const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => state);
 
     const [showModal, setShowModal] = useState<boolean>(false);
-    // const [categoryDetail, setCategoryDetail] = useState<Category>({ news: true, president: true, niti: true, idsa: true, pib: true, prs: true });
 
     useEffect(() => {
         getUserCategory(setCategoryDetail, logoutUser, navigate);
     }, [JSON.stringify(categoryDetail)]);
-
-    const onSubscriptionClickHandler = () => {
-        if (isLogged) {
-            navigate("/subscription");
-        } else {
-            navigate("/login");
-        }
-    };
 
     return (
         <div className="MainParentNewHome">
@@ -57,7 +49,7 @@ const Home = () => {
                         <BsStar className="InsideIcon" onClick={() => showModalHandler(setShowModal, navigate, isLogged)} />
                     </div>
                     <div className="IconNewHome" data-tooltip="Subscription">
-                        <BsCreditCard className="InsideIcon" onClick={onSubscriptionClickHandler} />
+                        <BsCreditCard className="InsideIcon" onClick={() => onSubscriptionClickHandler(navigate, isLogged)} />
                     </div>
 
                     {isLogged ? (

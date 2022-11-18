@@ -1,8 +1,9 @@
-import { toast } from "react-toastify";
-import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
-import { BookmarkData, Category, Post } from "../Utils/tscTypes";
+import axios from "axios";
+import { toast } from "react-toastify";
 import _ from "lodash";
+
+import { BookmarkData, Category, Post } from "../Utils/tscTypes";
 import { userDataErrorHandler } from "./errorFunctions";
 
 export const setBookmarkHandler = async (
@@ -226,7 +227,7 @@ export const onLogoutClickHandler = (navigate: NavigateFunction, logoutUser: () 
     setCategoryDetail({ news: true, president: true, niti: true, idsa: true, pib: true, prs: true });
     logoutUser();
     setSubscriptionStatus();
-    window.location.reload();
+    // window.location.reload();
 };
 
 export const onAboutClickHandler = (navigate: NavigateFunction) => {
@@ -240,6 +241,14 @@ export const onBookmarkClickHandler = (navigate: NavigateFunction, isLogged: boo
         } else {
             navigate("/subscription");
         }
+    } else {
+        navigate("/login");
+    }
+};
+
+export const onSubscriptionClickHandler = (navigate: NavigateFunction, isLogged: boolean) => {
+    if (isLogged) {
+        navigate("/subscription");
     } else {
         navigate("/login");
     }

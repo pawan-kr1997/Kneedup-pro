@@ -1,8 +1,9 @@
 import { Response, NextFunction } from "express";
 import { stripe } from "..";
-import { ExtendedRequest } from "../Utils/tscTypes";
-import { getUserFromDbUsingId, updateUserSubscriptionDetails } from "../Utils/databaseFunctions";
-import { createStripeBillingPortal, createStripeCheckoutSession, decodeJwtToken } from "../Utils/subscriptionFunctions";
+
+import { ExtendedRequest, StripeEventObject } from "../Utils/tscTypes";
+import { getUserFromDbUsingId } from "../Utils/databaseFunctions";
+import { createStripeBillingPortal, createStripeCheckoutSession, decodeJwtToken, getEventAndEventType, manageEventTypes } from "../Utils/subscriptionFunctions";
 
 const prisma = require("../../prisma/index.js");
 
@@ -14,6 +15,21 @@ export const getUserSubscriptionStatus = async (req: ExtendedRequest, res: Respo
         const user = await getUserFromDbUsingId(req.userId);
 
         res.status(200).json({ message: "User subscription status", subscriptionStatus: user.subscriptionStatus });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getUserSubscriptionDueDate = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+    try {
+        const user = await getUserFromDbUsingId(req.userId);
+
+        const subscription = await stripe.subscriptions.list({
+            customer: user.stripeUserId,
+            limit: 1,
+        });
+
+        res.status(200).json({ message: "Subscription due date", subscriptionDueDate: subscription.data[0].current_period_end });
     } catch (err) {
         next(err);
     }
@@ -45,55 +61,9 @@ export const createPortalSession = async (req: ExtendedRequest, res: Response) =
 };
 
 export const postStripeWebhook = async (req: ExtendedRequest, res: Response) => {
-    let data;
-    let eventType;
-    let subscription;
-    let event = req.body;
+    let subscription: StripeEventObject;
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    if (webhookSecret) {
-        let signature = req.headers["stripe-signature"];
-
-        try {
-            event = stripe.webhooks.constructEvent(req.body, signature as string | string[] | Buffer, webhookSecret);
-        } catch (err) {
-            console.log(`⚠️  Webhook signature verification failed.`);
-            return res.sendStatus(400);
-        }
-        data = event.data;
-        eventType = event.type;
-    } else {
-        data = req.body.data;
-        eventType = req.body.type;
-    }
-
-    switch (eventType) {
-        case "checkout.session.completed":
-            subscription = event.data.object;
-            updateUserSubscriptionDetails(subscription.metadata.userId, subscription.customer, true);
-
-            break;
-        case "invoice.paid":
-            console.log("Inside webhook 2");
-            subscription = event.data.object;
-            updateUserSubscriptionDetails(subscription.metadata.userId, subscription.customer, true);
-
-            break;
-        case "invoice.payment_failed":
-            console.log("Inside webhook 3");
-            subscription = event.data.object;
-            updateUserSubscriptionDetails(subscription.metadata.userId, null, false);
-
-            break;
-
-        case "customer.subscription.deleted":
-            console.log("Inside webhook 4");
-            subscription = event.data.object;
-            updateUserSubscriptionDetails(subscription.metadata.userId, null, false);
-
-            break;
-        default:
-            console.log("unhandles error types");
-    }
-
+    let { eventType, event } = getEventAndEventType(req, res, webhookSecret);
+    manageEventTypes(eventType, event);
     res.sendStatus(200);
 };

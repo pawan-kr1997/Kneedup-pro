@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
@@ -5,6 +6,7 @@ import { Link } from "react-router-dom";
 import { NavBar } from "../Components/NavBar/NavBar";
 import OffCanvas from "../Components/OffCanvas/OffCanvas";
 import { showModalHandler } from "../Functions/componentFunctions";
+import { setUserSubscriptionDueDate } from "../Functions/serverFunctions";
 
 import useUserStore from "../store";
 import { MessageProps, SuccessDisplayProps } from "../Utils/tscTypes";
@@ -33,7 +35,14 @@ const ProductDisplay = () => {
 };
 
 const SuccessDisplay: React.FC<SuccessDisplayProps> = ({ sessionId }) => {
-    const { token, subscriptionStatus } = useUserStore((state) => state);
+    const { token, subscriptionStatus, logoutUser } = useUserStore((state) => state);
+    let navigate = useNavigate();
+
+    const [dueDate, setDueDate] = useState<number>(0);
+
+    useEffect(() => {
+        setUserSubscriptionDueDate(setDueDate, logoutUser, navigate);
+    }, []);
 
     return (
         <section>
@@ -41,6 +50,7 @@ const SuccessDisplay: React.FC<SuccessDisplayProps> = ({ sessionId }) => {
                 <div className="SubsStatus">
                     <span> Subscription status: </span> {subscriptionStatus ? <div className="SubsActive">Active</div> : <div className="SubsInactive">Inactive</div>}
                 </div>
+                <div className="SubsDate">Your next payment is due on {new Date(dueDate * 1000).toUTCString()}</div>
                 <div className="SubsDescription">Your are now subscribed to the pro membership of KneedUp!!!</div>
             </div>
             <form action="http://localhost:8090/create-portal-session" method="POST">

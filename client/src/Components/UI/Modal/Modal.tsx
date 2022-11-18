@@ -1,8 +1,9 @@
 import Backdrop from "../Backdrop/Backdrop";
 import Checklist from "../../Checklist/Checklist";
-import "./Modal.css";
 import { ModalProps } from "../../../Utils/tscTypes";
 import { getModalVisibilityClassName } from "../../../Functions/componentFunctions";
+
+import "./Modal.css";
 
 const Modal: React.FC<ModalProps> = (props) => {
     let visibleState = getModalVisibilityClassName(props.show);

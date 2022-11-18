@@ -5,10 +5,10 @@ import { BiErrorCircle } from "react-icons/bi";
 import { AiFillHome } from "react-icons/ai";
 
 import Logo from "../Components/UI/Logo/Logo";
-
-import "./Style.css";
 import { sendResetLinkClickHandler } from "../Functions/serverFunctions";
 import { onHomeClickHandler } from "../Functions/componentFunctions";
+
+import "./Style.css";
 
 const PostReset = () => {
     let navigate = useNavigate();

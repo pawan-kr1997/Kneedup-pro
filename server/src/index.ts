@@ -1,12 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import Stripe from "stripe";
+import * as dotenv from "dotenv";
+
 import { postRoutes } from "./Routes/Post";
 import { userRoutes } from "./Routes/User";
 import { subscriptionRoutes } from "./Routes/Subscription";
-import * as dotenv from "dotenv";
-dotenv.config();
 
+dotenv.config();
 const app = express();
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET as string, { apiVersion: "2020-08-27" });

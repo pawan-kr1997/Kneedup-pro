@@ -6,10 +6,10 @@ import { BiErrorCircle } from "react-icons/bi";
 import { AiFillHome } from "react-icons/ai";
 
 import Logo from "../Components/UI/Logo/Logo";
-
-import "./Style.css";
 import { resetPasswordClickHandler } from "../Functions/serverFunctions";
 import { onHomeClickHandler } from "../Functions/componentFunctions";
+
+import "./Style.css";
 
 const Reset = () => {
     let navigate = useNavigate();

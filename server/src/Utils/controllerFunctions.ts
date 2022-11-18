@@ -1,8 +1,9 @@
 import { validationResult } from "express-validator";
-import { BookmarkData, ExtendedPost, ExtendedRequest, User } from "./tscTypes";
 import jwt, { Secret } from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+
+import { BookmarkData, ExtendedPost, ExtendedRequest, User } from "./tscTypes";
 import { addResetTokenToUser, getUserFromDbUsingEmailId } from "./databaseFunctions";
 
 const sendgridTransport = require("nodemailer-sendgrid-transport");

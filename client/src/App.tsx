@@ -11,7 +11,7 @@ import Bookmark from "./Pages/Bookmark";
 import Home from "./Pages/Home";
 import Feeds from "./Components/Feeds/Feeds";
 import Reset from "./Pages/Reset";
-import Subscription from "./Pages/Subscription";
+import Subscription from "./Pages/Subscription/Subscription";
 import PostReset from "./Pages/PostReset";
 import About from "./Pages/About";
 import useUserStore from "./store";

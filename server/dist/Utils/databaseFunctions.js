@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserSubscriptionDetails = exports.insertManyPosts = exports.updateSourceStates = exports.getSourceUsingName = exports.updateSourceCurrentState = exports.updateUserCategory = exports.createNewUser = exports.updateUserBookmark = exports.setResetPasswordToUser = exports.addResetTokenToUser = exports.getPostWithSourcesField = exports.getUserFromDbUsingToken = exports.getUserFromDbUsingId = exports.getUserFromDbUsingEmailId = void 0;
+exports.updateUserSubsDetailOnInvoiceFail = exports.updateUserSubsDetailOnInvoiceSuccess = exports.updateUserSubsDetailOnDeletion = exports.updateUserSubsDetailOnCreation = exports.insertManyPosts = exports.updateSourceStates = exports.getSourceUsingName = exports.updateSourceCurrentState = exports.updateUserCategory = exports.createNewUser = exports.updateUserBookmark = exports.setResetPasswordToUser = exports.addResetTokenToUser = exports.getPostWithSourcesField = exports.getUserFromDbUsingToken = exports.getUserFromDbUsingId = exports.getUserFromDbUsingEmailId = void 0;
 const prisma = require("../../prisma/index.js");
 const controllerFunctions_1 = require("./controllerFunctions");
 const getUserFromDbUsingEmailId = (emailId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -198,7 +198,7 @@ const insertManyPosts = (articleGroup) => __awaiter(void 0, void 0, void 0, func
     });
 });
 exports.insertManyPosts = insertManyPosts;
-const updateUserSubscriptionDetails = (userId, stripe_CustomerId, subs_status) => __awaiter(void 0, void 0, void 0, function* () {
+const updateUserSubsDetailOnCreation = (userId, stripe_CustomerId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield prisma.users.update({
             where: {
@@ -206,12 +206,63 @@ const updateUserSubscriptionDetails = (userId, stripe_CustomerId, subs_status) =
             },
             data: {
                 stripeUserId: stripe_CustomerId,
-                subscriptionStatus: subs_status,
+                subscriptionStatus: true,
             },
         });
     }
     catch (err) {
-        console.log("Error from updating subscription details");
+        console.log("Inform the administrator in some logger to update user details manually");
     }
 });
-exports.updateUserSubscriptionDetails = updateUserSubscriptionDetails;
+exports.updateUserSubsDetailOnCreation = updateUserSubsDetailOnCreation;
+const updateUserSubsDetailOnDeletion = (stripeId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: null,
+                subscriptionStatus: false,
+            },
+        });
+    }
+    catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+});
+exports.updateUserSubsDetailOnDeletion = updateUserSubsDetailOnDeletion;
+const updateUserSubsDetailOnInvoiceSuccess = (stripeId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: stripeId,
+                subscriptionStatus: true,
+            },
+        });
+    }
+    catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+});
+exports.updateUserSubsDetailOnInvoiceSuccess = updateUserSubsDetailOnInvoiceSuccess;
+const updateUserSubsDetailOnInvoiceFail = (stripeId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield prisma.users.update({
+            where: {
+                stripeUserId: stripeId,
+            },
+            data: {
+                stripeUserId: null,
+                subscriptionStatus: false,
+            },
+        });
+    }
+    catch (err) {
+        console.log("Inform the administrator in some logger to update user details manually");
+    }
+});
+exports.updateUserSubsDetailOnInvoiceFail = updateUserSubsDetailOnInvoiceFail;

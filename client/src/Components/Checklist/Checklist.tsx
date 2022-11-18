@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 
-import "./Checklist.css";
 import { ChecklistProps } from "../../Utils/tscTypes";
+import { getUserCategoryDetails, updateCategoryClickHandler } from "../../Functions/serverFunctions";
 
 import useUserStore from "../../store";
-import { getUserCategoryDetails, updateCategoryClickHandler } from "../../Functions/serverFunctions";
+
+import "./Checklist.css";
 
 const Checklist: React.FC<ChecklistProps> = (props) => {
     let navigate = useNavigate();

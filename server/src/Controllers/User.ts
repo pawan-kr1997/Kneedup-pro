@@ -1,5 +1,6 @@
 import { Response, NextFunction } from "express";
 import { ExtendedRequest, ExtendedRequestBody } from "../Utils/tscTypes";
+
 import {
     checkForValidationError,
     checkForPasswordMatch,

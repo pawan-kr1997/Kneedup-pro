@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { BiBookmarks } from "react-icons/bi";
 import { BiStar } from "react-icons/bi";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { Navbar, Offcanvas, Nav, Container, Accordion, ListGroup, Button } from "react-bootstrap";
 
-import "./OffCanvas.css";
 import { OffCanvasProps } from "../../Utils/tscTypes";
 import { onAboutClickHandler, onBookmarkClickHandler, onLogoutClickHandler } from "../../Functions/componentFunctions";
 
 import useUserStore from "../../store";
+
+import "./OffCanvas.css";
 
 const OffCanvas: React.FC<OffCanvasProps> = (props) => {
     let navigate = useNavigate();

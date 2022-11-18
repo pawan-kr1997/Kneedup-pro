@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createStripeBillingPortal = exports.createStripeCheckoutSession = exports.decodeJwtToken = void 0;
+exports.manageEventTypes = exports.getStripeEvent = exports.getEventAndEventType = exports.createStripeBillingPortal = exports.createStripeCheckoutSession = exports.decodeJwtToken = void 0;
 const prisma = require("../../prisma/index.js");
 const __1 = require("..");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const databaseFunctions_1 = require("./databaseFunctions");
 const decodeJwtToken = (userToken, res, cancelUrl) => {
     if (!userToken) {
         res.redirect(303, cancelUrl);
@@ -52,3 +53,57 @@ const createStripeBillingPortal = (stripeCustomerId, returnUrl) => __awaiter(voi
     return portalSession;
 });
 exports.createStripeBillingPortal = createStripeBillingPortal;
+const getEventAndEventType = (req, res, webhookSecret) => {
+    let eventType;
+    let event = req.body;
+    if (webhookSecret) {
+        event = (0, exports.getStripeEvent)(req, res, webhookSecret);
+        eventType = event.type;
+    }
+    else {
+        eventType = req.body.type;
+    }
+    return { eventType, event };
+};
+exports.getEventAndEventType = getEventAndEventType;
+const getStripeEvent = (req, res, webhookSecret) => {
+    let signature = req.headers["stripe-signature"];
+    let event = req.body;
+    try {
+        event = __1.stripe.webhooks.constructEvent(req.body, signature, webhookSecret);
+        return event;
+    }
+    catch (err) {
+        console.log(`Webhook signature verification failed.`);
+        res.sendStatus(400);
+    }
+};
+exports.getStripeEvent = getStripeEvent;
+const manageEventTypes = (eventType, event) => {
+    var _a;
+    let subscription;
+    switch (eventType) {
+        case "checkout.session.completed":
+            subscription = event.data.object;
+            (0, databaseFunctions_1.updateUserSubsDetailOnCreation)((_a = subscription.metadata) === null || _a === void 0 ? void 0 : _a.userId, subscription.customer);
+            break;
+        case "invoice.paid":
+            console.log("Inside webhook 2");
+            subscription = event.data.object;
+            (0, databaseFunctions_1.updateUserSubsDetailOnInvoiceSuccess)(subscription.customer);
+            break;
+        case "invoice.payment_failed":
+            console.log("Inside webhook 3");
+            subscription = event.data.object;
+            (0, databaseFunctions_1.updateUserSubsDetailOnInvoiceFail)(subscription.customer);
+            break;
+        case "customer.subscription.deleted":
+            console.log("Inside webhook 4");
+            subscription = event.data.object;
+            (0, databaseFunctions_1.updateUserSubsDetailOnDeletion)(subscription.customer);
+            break;
+        default:
+            console.log("unhandled event type");
+    }
+};
+exports.manageEventTypes = manageEventTypes;

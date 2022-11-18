@@ -9,6 +9,7 @@ const Subscription_1 = require("../Controllers/Subscription");
 const auth_1 = require("../Middleware/auth");
 exports.subscriptionRoutes = express_1.default.Router();
 exports.subscriptionRoutes.get("/subscriptionStatus", auth_1.authMiddleware, Subscription_1.getUserSubscriptionStatus);
+exports.subscriptionRoutes.get("/subscriptionDueDate", auth_1.authMiddleware, Subscription_1.getUserSubscriptionDueDate);
 exports.subscriptionRoutes.post("/create-checkout-session", Subscription_1.createCheckoutSession);
 exports.subscriptionRoutes.post("/create-portal-session", Subscription_1.createPortalSession);
 exports.subscriptionRoutes.post("/webhooks", express_1.default.raw({ type: "application/json" }), Subscription_1.postStripeWebhook);

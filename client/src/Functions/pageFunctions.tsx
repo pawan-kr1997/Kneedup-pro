@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
+
 import { authenticationErrorHandler } from "./errorFunctions";
 
 export const onSignupHandler = async (
@@ -51,4 +52,9 @@ export const onLoginHandler = async (
 
 export const goToHomeHandler = (navigate: NavigateFunction) => {
     navigate("/");
+};
+
+export const onRefreshClickHandler = (navigate: NavigateFunction) => {
+    navigate("/home");
+    window.location.reload();
 };

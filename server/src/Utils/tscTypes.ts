@@ -1,4 +1,5 @@
 import { Request } from "express";
+import Stripe from "stripe";
 
 export type Article = {
     title: string;
@@ -34,7 +35,6 @@ export type ExtendedRequest = Request & {
     sourceName?: string;
     sourceId: string;
     category?: string | number | symbol | any;
-    // category?: string;
     userId?: string;
 };
 
@@ -103,4 +103,14 @@ export type BookmarkData = {
     title: string;
     url: string;
     category: string;
+};
+
+export type StripeEventObject = Stripe.Event.Data.Object & {
+    id?: string;
+    expires_at?: number;
+    customer?: string;
+    latest_invoice?: string;
+    metadata?: {
+        userId: string;
+    };
 };

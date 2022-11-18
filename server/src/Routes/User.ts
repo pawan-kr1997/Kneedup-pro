@@ -1,5 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
+
 import {
     getUserBookmarks,
     deletePostFromUserBookmarks,
@@ -15,6 +16,11 @@ import { authMiddleware } from "../Middleware/auth";
 
 export const userRoutes = express.Router();
 
+userRoutes.get("/feeds/category", authMiddleware, getUserCategoryField);
+userRoutes.post("/feeds/category", authMiddleware, updateUserCategoryField);
+userRoutes.get("/postBookmark/:postId", authMiddleware, addPostToUserBookmarks);
+userRoutes.get("/postUnmark/:postId", authMiddleware, deletePostFromUserBookmarks);
+userRoutes.get("/bookmark", authMiddleware, getUserBookmarks);
 userRoutes.post(
     "/signup",
     [
@@ -36,11 +42,6 @@ userRoutes.post(
     loginUserUsingEmailPassword
 );
 
-userRoutes.get("/feeds/category", authMiddleware, getUserCategoryField);
-userRoutes.post("/feeds/category", authMiddleware, updateUserCategoryField);
-userRoutes.get("/postBookmark/:postId", authMiddleware, addPostToUserBookmarks);
-userRoutes.get("/postUnmark/:postId", authMiddleware, deletePostFromUserBookmarks);
-userRoutes.get("/bookmark", authMiddleware, getUserBookmarks);
 userRoutes.post("/password/resetLink", body("emailId", "Email id is not valid").trim().isEmail().not().isEmpty(), generatePasswordResetLink);
 userRoutes.post(
     "/password/resetPassword",

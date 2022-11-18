@@ -1,4 +1,5 @@
 import express from "express";
+
 import { extractNewsData } from "../Middleware/extractNews";
 import { uploadToSourceMidd } from "../Middleware/uploadToSource";
 import { getPosts } from "../Controllers/Post";
@@ -7,6 +8,7 @@ import { extractNitiData } from "../Middleware/extractNiti";
 import { extractPresidentData } from "../Middleware/extractPresident";
 import { extractPressData } from "../Middleware/extractPress";
 import { extractPrsData } from "../Middleware/extractPrs";
+
 export const postRoutes = express.Router();
 
 postRoutes.get("/newsOnAir/:category", extractNewsData, uploadToSourceMidd, getPosts);

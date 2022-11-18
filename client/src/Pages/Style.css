@@ -472,7 +472,14 @@
 
 .SubsDescription {
     text-align: center;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.SubsDate {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: gray;
 }
 
 .SubsActive {

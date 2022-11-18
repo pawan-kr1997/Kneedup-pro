@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
+
 import { BookmarkData, Category, Post } from "../Utils/tscTypes";
 import { getPostErrorHandler, userDataErrorHandler } from "./errorFunctions";
 
@@ -167,4 +168,16 @@ export const resetPasswordClickHandler = (
             }
             setError(err.response.data.message);
         });
+};
+
+export const setUserSubscriptionDueDate = async (setDueDate: React.Dispatch<React.SetStateAction<number>>, logoutUser: () => void, navigate: NavigateFunction): Promise<void> => {
+    try {
+        const response = await axios.get("/subscriptionDueDate");
+        setDueDate(response.data.subscriptionDueDate);
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            console.log(err);
+            userDataErrorHandler(err.response?.data, logoutUser, navigate);
+        }
+    }
 };

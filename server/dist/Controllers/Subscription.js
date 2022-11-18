@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postStripeWebhook = exports.createPortalSession = exports.createCheckoutSession = exports.getUserSubscriptionStatus = void 0;
+exports.postStripeWebhook = exports.createPortalSession = exports.createCheckoutSession = exports.getUserSubscriptionDueDate = exports.getUserSubscriptionStatus = void 0;
 const __1 = require("..");
 const databaseFunctions_1 = require("../Utils/databaseFunctions");
 const subscriptionFunctions_1 = require("../Utils/subscriptionFunctions");
@@ -26,6 +26,20 @@ const getUserSubscriptionStatus = (req, res, next) => __awaiter(void 0, void 0, 
     }
 });
 exports.getUserSubscriptionStatus = getUserSubscriptionStatus;
+const getUserSubscriptionDueDate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield (0, databaseFunctions_1.getUserFromDbUsingId)(req.userId);
+        const subscription = yield __1.stripe.subscriptions.list({
+            customer: user.stripeUserId,
+            limit: 1,
+        });
+        res.status(200).json({ message: "Subscription due date", subscriptionDueDate: subscription.data[0].current_period_end });
+    }
+    catch (err) {
+        next(err);
+    }
+});
+exports.getUserSubscriptionDueDate = getUserSubscriptionDueDate;
 const createCheckoutSession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let decodedToken = (0, subscriptionFunctions_1.decodeJwtToken)(req.body.user_token, res, CANCEL_URL);
@@ -52,50 +66,10 @@ const createPortalSession = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.createPortalSession = createPortalSession;
 const postStripeWebhook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let data;
-    let eventType;
     let subscription;
-    let event = req.body;
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    if (webhookSecret) {
-        let signature = req.headers["stripe-signature"];
-        try {
-            event = __1.stripe.webhooks.constructEvent(req.body, signature, webhookSecret);
-        }
-        catch (err) {
-            console.log(`⚠️  Webhook signature verification failed.`);
-            return res.sendStatus(400);
-        }
-        data = event.data;
-        eventType = event.type;
-    }
-    else {
-        data = req.body.data;
-        eventType = req.body.type;
-    }
-    switch (eventType) {
-        case "checkout.session.completed":
-            subscription = event.data.object;
-            (0, databaseFunctions_1.updateUserSubscriptionDetails)(subscription.metadata.userId, subscription.customer, true);
-            break;
-        case "invoice.paid":
-            console.log("Inside webhook 2");
-            subscription = event.data.object;
-            (0, databaseFunctions_1.updateUserSubscriptionDetails)(subscription.metadata.userId, subscription.customer, true);
-            break;
-        case "invoice.payment_failed":
-            console.log("Inside webhook 3");
-            subscription = event.data.object;
-            (0, databaseFunctions_1.updateUserSubscriptionDetails)(subscription.metadata.userId, null, false);
-            break;
-        case "customer.subscription.deleted":
-            console.log("Inside webhook 4");
-            subscription = event.data.object;
-            (0, databaseFunctions_1.updateUserSubscriptionDetails)(subscription.metadata.userId, null, false);
-            break;
-        default:
-            console.log("unhandles error types");
-    }
+    let { eventType, event } = (0, subscriptionFunctions_1.getEventAndEventType)(req, res, webhookSecret);
+    (0, subscriptionFunctions_1.manageEventTypes)(eventType, event);
     res.sendStatus(200);
 });
 exports.postStripeWebhook = postStripeWebhook;

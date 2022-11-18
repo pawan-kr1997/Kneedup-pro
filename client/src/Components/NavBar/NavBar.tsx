@@ -2,10 +2,11 @@ import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 
+import { onHomeClickHandler, onLogoutClickHandler } from "../../Functions/componentFunctions";
+
 import useUserStore from "../../store";
 
 import "./NavBar.css";
-import { onHomeClickHandler, onLogoutClickHandler } from "../../Functions/componentFunctions";
 
 export const NavBar = () => {
     let navigate = useNavigate();
