@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BiBookmarks } from "react-icons/bi";
 import { BiStar } from "react-icons/bi";
+import { BsCreditCard } from "react-icons/bs";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { Navbar, Offcanvas, Nav, Container, Accordion, ListGroup, Button } from "react-bootstrap";
 
 import { OffCanvasProps } from "../../Utils/tscTypes";
-import { onAboutClickHandler, onBookmarkClickHandler, onLogoutClickHandler } from "../../Functions/componentFunctions";
+import { onAboutClickHandler, onBookmarkClickHandler, onLogoutClickHandler, onSubscriptionClickHandler } from "../../Functions/componentFunctions";
 
 import useUserStore from "../../store";
 
@@ -17,8 +18,6 @@ const OffCanvas: React.FC<OffCanvasProps> = (props) => {
     const { token, isLogged, subscriptionStatus, loginUser, logoutUser, setSubscriptionStatus, setCategoryDetail } = useUserStore((state) => state);
 
     const [show, setShow] = useState(false);
-
-    // let LoggedIn = localStorage.getItem("token");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -62,6 +61,17 @@ const OffCanvas: React.FC<OffCanvasProps> = (props) => {
                         >
                             <BiBookmarks />
                             Bookmarks
+                        </ListGroup.Item>
+                        <ListGroup.Item
+                            action
+                            className="OffcanvasList"
+                            onClick={() => {
+                                onSubscriptionClickHandler(navigate, isLogged);
+                                handleClose();
+                            }}
+                        >
+                            <BsCreditCard />
+                            Subscription
                         </ListGroup.Item>
 
                         {props.showFollowSite ? (

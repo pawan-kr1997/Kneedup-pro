@@ -9,6 +9,7 @@ import ProductDisplay from "./ProductDisplay";
 import SuccessDisplay from "./SuccessDisplay";
 
 import useUserStore from "../../store";
+import { setSubsParamOnSuccessAndFail } from "../../Functions/pageFunctions";
 
 export default function Subscription() {
     const { token, isLogged, categoryDetail, subscriptionStatus, loginUser, logoutUser, setCategoryDetail, setSubscriptionStatus } = useUserStore((state) => state);
@@ -22,18 +23,7 @@ export default function Subscription() {
 
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
-
-        if (query.get("success")) {
-            console.log("success");
-            setSuccess(true);
-            setSessionId(query.get("session_id") as string);
-        }
-
-        if (query.get("canceled")) {
-            console.log("cnacelled");
-            setSuccess(false);
-            setMessage("Order canceled -- continue to shop around and checkout when you're ready.");
-        }
+        setSubsParamOnSuccessAndFail(query, setSuccess, setSessionId, setMessage);
     }, [sessionId]);
 
     let subscriptionPageContent = null;

@@ -227,7 +227,7 @@ export const onLogoutClickHandler = (navigate: NavigateFunction, logoutUser: () 
     setCategoryDetail({ news: true, president: true, niti: true, idsa: true, pib: true, prs: true });
     logoutUser();
     setSubscriptionStatus();
-    // window.location.reload();
+    window.location.reload();
 };
 
 export const onAboutClickHandler = (navigate: NavigateFunction) => {
